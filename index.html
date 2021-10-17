@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>分布式环境监测</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js">
+    </script>
+    <style>
+        .container {
+            width: 60%;
+            margin: 10% auto 0;
+            background-color: #f0f0f0;
+            padding: 2% 5%;
+            border-radius: 10px
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        ul li {
+            line-height: 2.3
+        }
+
+        a {
+            color: #20a53a
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>分布式环境监测数据页面</h1>
+        <h3>数据由网关向节点收集，上传至远程服务器</h3>
+        <ul>
+            <li>
+                <time></time>
+            </li>
+            <li>
+                <node2></node2>
+            </li>
+            <li>
+                <node3></node3>
+            </li>
+            <li>
+                <node4></node4>
+            </li>
+            <li>
+                <node5></node5>
+            </li>
+
+            <script>
+                $(document).ready(function () {
+                    $.ajaxSetup({ cache: false });
+                    setInterval(function () {
+                        $.getJSON("/data.json", function (data) {
+                            $("time").text("数据更新时间: " + data.time);
+                            $("node2").text("节点 2: 湿度: " + data.node2.humi + "% 温度: " + data.node2.temp + "°C 光照度: " + data.node2.light + "lx");
+                            $("node3").text("节点 3: 湿度: " + data.node3.humi + "% 温度: " + data.node3.temp + "°C 光照度: " + data.node3.light + "lx");
+                            $("node4").text("节点 4: 湿度: " + data.node4.humi + "% 温度: " + data.node4.temp + "°C 光照度: " + data.node4.light + "lx");
+                            $("node5").text("节点 5: 湿度: " + data.node5.humi + "% 温度: " + data.node5.temp + "°C 光照度: " + data.node5.light + "lx");
+                        });
+                    }, 100);
+                });
+            </script>
+        </ul>
+    </div>
+</body>
+
+</html>
